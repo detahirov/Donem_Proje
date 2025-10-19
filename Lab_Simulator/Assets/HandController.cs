@@ -117,8 +117,32 @@ public class HandController : MonoBehaviour
 
     public void UseHeldItem()
     {
-        // Örnek: bir aleti kullanmak istiyorsan burada tetikle
-        // e.g. if heldItem has tool behaviour çaðýr
+        if (heldItem == null) return;
+
+        // Ray hedefini al
+        Ray ray = playerCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit, interactRange, interactLayerMask))
+        {
+            var container = hit.collider.GetComponentInParent<Container>();
+            if (container != null)
+            {
+                // heldItem Reagent ise container'a ekle (veya Reagent.OnUse çaðýr)
+                var reagent = heldItem.GetComponent<Reagent>();
+                if (reagent != null)
+                {
+                    // elden býrakmadan "dökme" mantýðý: direkt olarak container'a ekle
+                    container.AddReagentFromHand(reagent, /*worldPos*/ hit.point);
+                    heldItem = null; // eðer þiþenin boþalmasýný istiyorsan destroy vb.
+                    var anim = GetComponentInChildren<Animator>();
+                    if (anim) anim.SetTrigger("Pour");
+                    return;
+                }
+            }
+        }
+
+        // fallback: debug
         Debug.Log("Kullanýlýyor: " + (heldItem ? heldItem.name : "Yok"));
     }
+
 }
