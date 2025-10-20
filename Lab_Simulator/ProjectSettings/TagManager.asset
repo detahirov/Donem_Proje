@@ -15,8 +15,8 @@ TagManager:
   - 
   - 
   - 'Pickupable '
-  - Reagent
-  - Container
+  - ChemicalItem
+  - ReactionContainer
   - 
   - 
   - 
