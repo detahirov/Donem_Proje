@@ -237,6 +237,7 @@ GameObject:
   - component: {fileID: 797650083}
   - component: {fileID: 797650082}
   - component: {fileID: 797650081}
+  - component: {fileID: 797650085}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -334,6 +335,27 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &797650085
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 797650080}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 10, y: 2.220446e-16, z: 10}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &977715944 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 180557533655662575, guid: 930b7a19d446f4b4c9c810e37e84e625, type: 3}
@@ -938,7 +960,7 @@ MonoBehaviour:
   interactRange: 3
   interactLayerMask:
     serializedVersion: 2
-    m_Bits: 1
+    m_Bits: 1280
   playerCamera: {fileID: 1387099932}
   interactKey: 101
   pickupKey: 323
@@ -1326,7 +1348,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -1452,7 +1474,7 @@ Transform:
   m_GameObject: {fileID: 1066320339395175983}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.1614, y: 4.772, z: 1.9737}
+  m_LocalPosition: {x: 2.1614, y: 4.772, z: 2.723}
   m_LocalScale: {x: 0.1, y: 0.1, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
