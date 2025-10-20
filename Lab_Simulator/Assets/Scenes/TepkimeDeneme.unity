@@ -184,7 +184,7 @@ GameObject:
   - component: {fileID: 425098087}
   - component: {fileID: 425098086}
   - component: {fileID: 425098085}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -568,17 +568,25 @@ PrefabInstance:
       propertyPath: m_Name
       value: "Na(Sodyum Kat\u0131s\u0131)"
       objectReference: {fileID: 0}
+    - target: {fileID: 1066320339551590667, guid: ddf158fa503055d40b1c8c88466f7659, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 6131264302611363894, guid: ddf158fa503055d40b1c8c88466f7659, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8590660178560732303, guid: ddf158fa503055d40b1c8c88466f7659, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.721
+      value: -1.233
       objectReference: {fileID: 0}
     - target: {fileID: 8590660178560732303, guid: ddf158fa503055d40b1c8c88466f7659, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.729
+      value: 2.253
       objectReference: {fileID: 0}
     - target: {fileID: 8590660178560732303, guid: ddf158fa503055d40b1c8c88466f7659, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 3.919
+      value: 3.662
       objectReference: {fileID: 0}
     - target: {fileID: 8590660178560732303, guid: ddf158fa503055d40b1c8c88466f7659, type: 3}
       propertyPath: m_LocalRotation.w
