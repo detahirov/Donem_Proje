@@ -12,12 +12,40 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83774c56bad3b3140b96aa35e8c5b0f6, type: 3}
   m_Name: "Na + Water \u2192 Explosion + Gas"
   m_EditorClassIdentifier: 
-  reactants: []
+  reactants:
+  - {fileID: 11400000, guid: 471071ca550eb2a4aade4c3af2895fa2, type: 2}
+  - {fileID: 11400000, guid: caf7b450a9befbc43a96353598ff5240, type: 2}
   requiresLiquidContainer: 1
   minTemp: 0
   maxTemp: 999
   onlyIfIndicatorPresent: 0
-  effects: []
+  effects:
+  - type: 1
+    targetColor: {r: 0, g: 0, b: 0, a: 0}
+    colorLerpTime: 0
+    gasPrefab: {fileID: 0}
+    gasRate: 10
+    gasDuration: 0
+    heatDelta: 0
+    foamPrefab: {fileID: 0}
+    foamDuration: 0
+    explosionPrefab: {fileID: 6181840845886346562, guid: 595ce9cdbec5d5b48b54004080f79006, type: 3}
+    explosionForce: 350
+    explosionRadius: 3
+    explosionSfx: {fileID: 8300000, guid: 48ea30fd8a3c24445b3e6b8e5fe71ee8, type: 3}
+  - type: 3
+    targetColor: {r: 0, g: 0, b: 0, a: 0}
+    colorLerpTime: 0
+    gasPrefab: {fileID: 0}
+    gasRate: 10
+    gasDuration: 5
+    heatDelta: 0
+    foamPrefab: {fileID: 6181840845886346562, guid: 595ce9cdbec5d5b48b54004080f79006, type: 3}
+    foamDuration: 10
+    explosionPrefab: {fileID: 8561864871156886083, guid: d4e981c4435c458429630db9b4b6806d, type: 3}
+    explosionForce: 350
+    explosionRadius: 3
+    explosionSfx: {fileID: 8300000, guid: 48ea30fd8a3c24445b3e6b8e5fe71ee8, type: 3}
   consumeAllReactants: 1
   products: []
   notes: 
