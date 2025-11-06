@@ -21,7 +21,7 @@ MonoBehaviour:
   onlyIfIndicatorPresent: 0
   effects:
   - type: 2
-    targetColor: {r: 0.36390078, g: 0.78867924, b: 0.14136694, a: 0}
+    targetColor: {r: 1, g: 1, b: 1, a: 0}
     colorLerpTime: 0
     gasPrefab: {fileID: 0}
     gasRate: 0
