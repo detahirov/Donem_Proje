@@ -148,13 +148,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e5dd77765fd8a342928145e28384a0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  defaultExplosionVFX: {fileID: 853492351093151572, guid: bf8b6eb8532382f4e8350353b863bef4, type: 3}
-  defaultSteamVFX: {fileID: 1996659574785867068, guid: 595ce9cdbec5d5b48b54004080f79006, type: 3}
-  defaultBubbleVFX: {fileID: 3175103336029941210, guid: d4e981c4435c458429630db9b4b6806d, type: 3}
-  defaultFizz: {fileID: 8300000, guid: 48ea30fd8a3c24445b3e6b8e5fe71ee8, type: 3}
-  defaultBang: {fileID: 8300000, guid: 48ea30fd8a3c24445b3e6b8e5fe71ee8, type: 3}
-  cameraShakeIntensity: 0.2
-  cameraShakeDuration: 0.4
+  reactions: []
+  indicators: []
 --- !u!4 &79191001
 Transform:
   m_ObjectHideFlags: 0
@@ -182,18 +177,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2fd8c74a180b5a4a963c21509c4591a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  reagentName: Sodium
-  reactionType: 1
-  mass: 0.05
-  explosionVFX: {fileID: 853492351093151572, guid: bf8b6eb8532382f4e8350353b863bef4, type: 3}
-  steamVFX: {fileID: 1996659574785867068, guid: 595ce9cdbec5d5b48b54004080f79006, type: 3}
-  bubbleVFX: {fileID: 3175103336029941210, guid: d4e981c4435c458429630db9b4b6806d, type: 3}
-  fizzAudio: {fileID: 8300000, guid: 48ea30fd8a3c24445b3e6b8e5fe71ee8, type: 3}
-  bangAudio: {fileID: 8300000, guid: 48ea30fd8a3c24445b3e6b8e5fe71ee8, type: 3}
-  explosionForce: 300
-  explosionRadius: 3
-  reactionDelay: 0.2
-  hasReacted: 0
+  substance: {fileID: 0}
+  amount: 0.05
+  consumedOnAdd: 1
 --- !u!1 &797650080
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,7 +192,6 @@ GameObject:
   - component: {fileID: 797650083}
   - component: {fileID: 797650082}
   - component: {fileID: 797650081}
-  - component: {fileID: 797650085}
   m_Layer: 0
   m_Name: Plane
   m_TagString: Untagged
@@ -304,8 +289,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-
-
 --- !u!1 &999703441
 GameObject:
   m_ObjectHideFlags: 0
@@ -606,7 +589,6 @@ MonoBehaviour:
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
   m_SoftShadowQuality: 0
-
 --- !u!114 &955254276533745478
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -805,63 +787,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!1001 &8515080016503691264
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5184655265388966488, guid: 57dd34b9334f4234aa91558d0886d2b4, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 2.166
-      objectReference: {fileID: 0}
-    - target: {fileID: 5184655265388966488, guid: 57dd34b9334f4234aa91558d0886d2b4, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 4.0181
-      objectReference: {fileID: 0}
-    - target: {fileID: 5184655265388966488, guid: 57dd34b9334f4234aa91558d0886d2b4, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.968
-      objectReference: {fileID: 0}
-    - target: {fileID: 5184655265388966488, guid: 57dd34b9334f4234aa91558d0886d2b4, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5184655265388966488, guid: 57dd34b9334f4234aa91558d0886d2b4, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5184655265388966488, guid: 57dd34b9334f4234aa91558d0886d2b4, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5184655265388966488, guid: 57dd34b9334f4234aa91558d0886d2b4, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5184655265388966488, guid: 57dd34b9334f4234aa91558d0886d2b4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5184655265388966488, guid: 57dd34b9334f4234aa91558d0886d2b4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5184655265388966488, guid: 57dd34b9334f4234aa91558d0886d2b4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6459995446987350833, guid: 57dd34b9334f4234aa91558d0886d2b4, type: 3}
-      propertyPath: m_Name
-      value: WaterContainer
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 57dd34b9334f4234aa91558d0886d2b4, type: 3}
 --- !u!4 &8590660178421461931
 Transform:
   m_ObjectHideFlags: 0
@@ -885,6 +810,5 @@ SceneRoots:
   - {fileID: 6614626243956877211}
   - {fileID: 797650084}
   - {fileID: 999703447}
-  - {fileID: 8515080016503691264}
   - {fileID: 8590660178421461931}
   - {fileID: 79191001}

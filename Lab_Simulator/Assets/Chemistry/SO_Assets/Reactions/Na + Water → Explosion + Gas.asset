@@ -29,19 +29,19 @@ MonoBehaviour:
     heatDelta: 0
     foamPrefab: {fileID: 0}
     foamDuration: 0
-    explosionPrefab: {fileID: 8561864871156886083, guid: d4e981c4435c458429630db9b4b6806d, type: 3}
+    explosionPrefab: {fileID: 6181840845886346562, guid: 595ce9cdbec5d5b48b54004080f79006, type: 3}
     explosionForce: 350
     explosionRadius: 3
     explosionSfx: {fileID: 8300000, guid: 48ea30fd8a3c24445b3e6b8e5fe71ee8, type: 3}
-  - type: 4
+  - type: 3
     targetColor: {r: 0, g: 0, b: 0, a: 0}
     colorLerpTime: 0
     gasPrefab: {fileID: 0}
     gasRate: 10
-    gasDuration: 0
+    gasDuration: 5
     heatDelta: 0
-    foamPrefab: {fileID: 0}
-    foamDuration: 0
+    foamPrefab: {fileID: 6181840845886346562, guid: 595ce9cdbec5d5b48b54004080f79006, type: 3}
+    foamDuration: 10
     explosionPrefab: {fileID: 8561864871156886083, guid: d4e981c4435c458429630db9b4b6806d, type: 3}
     explosionForce: 350
     explosionRadius: 3
