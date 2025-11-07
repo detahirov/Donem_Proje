@@ -23,9 +23,9 @@ MonoBehaviour:
   - type: 1
     targetColor: {r: 0, g: 0, b: 0, a: 0}
     colorLerpTime: 0
-    gasPrefab: {fileID: 0}
+    gasPrefab: {fileID: 6181840845886346562, guid: 595ce9cdbec5d5b48b54004080f79006, type: 3}
     gasRate: 10
-    gasDuration: 0
+    gasDuration: 10
     heatDelta: 0
     foamPrefab: {fileID: 0}
     foamDuration: 0
@@ -37,8 +37,8 @@ MonoBehaviour:
     targetColor: {r: 0, g: 0, b: 0, a: 0}
     colorLerpTime: 0
     gasPrefab: {fileID: 0}
-    gasRate: 10
-    gasDuration: 5
+    gasRate: 0
+    gasDuration: 0
     heatDelta: 0
     foamPrefab: {fileID: 6181840845886346562, guid: 595ce9cdbec5d5b48b54004080f79006, type: 3}
     foamDuration: 10
