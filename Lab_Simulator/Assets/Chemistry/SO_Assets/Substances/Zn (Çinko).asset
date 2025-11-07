@@ -16,7 +16,7 @@ MonoBehaviour:
   defaultState: 0
   pH: 7
   solubleInWater: 1
-  baseColor: {r: 1, g: 1, b: 1, a: 1}
+  baseColor: {r: 0.89433956, g: 0.261552, b: 0.45077014, a: 1}
   icon: {fileID: 0}
   isAcid: 0
   isBase: 0

@@ -189,7 +189,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: HCL
+  m_text: FENOL
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -293,7 +293,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3394911878397090405}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.7066296, y: -0.025974883, z: -0.02597488, w: 0.7066295}
+  m_LocalRotation: {x: -0.70662963, y: -0.025972651, z: -0.025972651, w: 0.70662963}
   m_LocalPosition: {x: -3.913, y: 1.21, z: 3.707}
   m_LocalScale: {x: 14.9, y: 10, z: 10}
   m_ConstrainProportionsScale: 0
@@ -303,7 +303,7 @@ Transform:
   - {fileID: 6245956371635619043}
   - {fileID: 6647224611346980206}
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: -4.21}
 --- !u!33 &1439231463829770106
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -435,9 +435,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2fd8c74a180b5a4a963c21509c4591a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  substance: {fileID: 11400000, guid: f37936864dbbb3e4a96b78017ee497ec, type: 2}
+  substance: {fileID: 11400000, guid: 938ec015c26e07b40a1cd4f58ffda50c, type: 2}
   amount: 0.05
-  consumedOnAdd: 0
+  consumedOnAdd: 1
 --- !u!1 &3406121484344695399
 GameObject:
   m_ObjectHideFlags: 0
