@@ -1880,8 +1880,16 @@ PrefabInstance:
       value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 4240930719138028795, guid: 972f033e08b4b494ca8d2de2aae2cdf8, type: 3}
+      propertyPath: substance
+      value: 
+      objectReference: {fileID: 11400000, guid: f37936864dbbb3e4a96b78017ee497ec, type: 2}
+    - target: {fileID: 4240930719138028795, guid: 972f033e08b4b494ca8d2de2aae2cdf8, type: 3}
       propertyPath: consumedOnAdd
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5282436576257958206, guid: 972f033e08b4b494ca8d2de2aae2cdf8, type: 3}
+      propertyPath: m_text
+      value: HCL
       objectReference: {fileID: 0}
     - target: {fileID: 6418252558681126190, guid: 972f033e08b4b494ca8d2de2aae2cdf8, type: 3}
       propertyPath: m_Layer
