@@ -13,11 +13,13 @@ public class Pickupable : Interactable
     Collider col;
     Transform originalParent;
 
+    Vector3 originalScale;
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
         col = GetComponent<Collider>();
         originalParent = transform.parent;
+        originalScale = transform.localScale;
     }
 
     public override void OnInteract(HandController hand)
@@ -28,14 +30,10 @@ public class Pickupable : Interactable
 
     public void OnPick(Transform handAttachPoint)
     {
-        // kopyasýný kullanmak yerine objeyi parent yapýyoruz
-        Vector3 originalScale = transform.lossyScale; // global scale’i kaydet
-        transform.SetParent(handAttachPoint, worldPositionStays: true); // world stays TRUE
+        // kopyasÄ±nÄ± kullanmak yerine objeyi parent yapÄ±yoruz
+        transform.SetParent(handAttachPoint, worldPositionStays: false);
         transform.localPosition = inHandLocalPosition;
         transform.localEulerAngles = inHandLocalEuler;
-        transform.localScale = Vector3.one; // handAttachPoint'in scale'ini etkisiz kýl
-        transform.localScale = transform.localScale / handAttachPoint.lossyScale.x; // extra önlem
-
 
         if (disablePhysicsWhenHeld)
         {
@@ -43,10 +41,10 @@ public class Pickupable : Interactable
             if (col) col.isTrigger = true;
         }
     }
-
     public void OnDrop(Vector3 dropForce)
     {
         transform.SetParent(originalParent, worldPositionStays: true);
+        transform.localScale = originalScale;
         if (disablePhysicsWhenHeld)
         {
             rb.isKinematic = false;
