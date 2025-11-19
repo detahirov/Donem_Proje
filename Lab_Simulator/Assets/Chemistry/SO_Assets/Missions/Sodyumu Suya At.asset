@@ -1,0 +1,28 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d5b9f0b088b5dc41bef6a53616f7625, type: 3}
+  m_Name: Sodyumu Suya At
+  m_EditorClassIdentifier: 
+  missionId: M1_NaWater
+  title: Na + Su Tepkimesi
+  description: "Beher i\xE7indeki suya sodyum par\xE7ac\u0131\u011F\u0131 at ve reaksiyonu
+    g\xF6zlemle."
+  conditionType: 1
+  targetReaction: {fileID: 11400000, guid: 0443ca1bac403c747a76fe0759e947fb, type: 2}
+  targetSubstance: {fileID: 0}
+  toolName: 
+  unlockSubstances:
+  - {fileID: 11400000, guid: f37936864dbbb3e4a96b78017ee497ec, type: 2}
+  - {fileID: 11400000, guid: cfbcc991a450a1a42b25b9175a180f2c, type: 2}
+  - {fileID: 11400000, guid: 938ec015c26e07b40a1cd4f58ffda50c, type: 2}
+  unlockTools: []
+  completesGame: 0
