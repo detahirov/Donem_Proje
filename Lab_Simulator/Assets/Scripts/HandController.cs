@@ -1,74 +1,209 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class HandController : MonoBehaviour
 {
-    public Transform handAttachPoint; // el i�indeki attach point (inspector'da ver)
-    public float interactRange = 3f;
-    public LayerMask interactLayerMask = ~0; // default t�m layer'lar
+    [Header("General Interaction")]
     public Camera playerCamera;
+    public float interactRange = 3f;
+    public LayerMask interactLayerMask = ~0;
     public KeyCode interactKey = KeyCode.E;
-    public KeyCode pickupKey = KeyCode.Mouse0; // sol t�k ile al/ate�
-    public KeyCode dropKey = KeyCode.Q;
-    public float dropForce = 2f;
 
-    Pickupable heldItem = null;
+    [Header("General Pickup System (Pickupable)")]
+    public Transform handAttachPoint;         // normal pickupable'lar için eldeki nokta
+    public KeyCode pickupKey = KeyCode.Mouse0;
+    public KeyCode dropKey = KeyCode.Q;
+    private Pickupable heldItem = null;
+
+    [Header("Bottle System")]
+    public LayerMask bottleLayer;            // sadece Bottle layer'ı seç
+    public Transform bottleSocket;           // el içindeki BottleSocket
+    public Transform exampleHeldBottle;      // BottleSocket altındaki referans şişe
+    public KeyCode grabBottleKey = KeyCode.E;
+
+    [Header("Hand Tilt (El Eğme)")]
+    public Transform wristBone;              // HandRig altındaki Wrist kemiği
+    public float wristTiltAngle = 90f;       // Y ekseninde ne kadar dönecek
+    public float wristTiltSpeed = 8f;        // eğme için Lerp hızı
+    public KeyCode tiltKey = KeyCode.R;      // R'ye basılı tutarak eğ
+
+    [Header("Animation")]
+    public Animator handAnimator;            // elin Animator'ı (HasBottle, Holding parametreleri olmalı)
+
+    // Bottle state
+    private Transform currentBottle;
+    private Rigidbody currentBottleRb;
+    private Collider currentBottleCol;
+    private Vector3 heldLocalPos;
+    private Quaternion heldLocalRot;
+
+    // Wrist rotasyonları
+    private Quaternion wristDefaultRot;
 
     void Start()
     {
-        if (playerCamera == null) playerCamera = Camera.main;
+        if (!playerCamera)
+            playerCamera = Camera.main;
+
+        // Referans şişeden elde tutuş pozunu al
+        if (exampleHeldBottle != null)
+        {
+            heldLocalPos = exampleHeldBottle.localPosition;
+            heldLocalRot = exampleHeldBottle.localRotation;
+
+            // Bu şişe sadece referans, oyunda görünmesine gerek yok
+            exampleHeldBottle.gameObject.SetActive(false);
+        }
+
+        // Wrist için başlangıç rotasyonu
+        if (wristBone != null)
+        {
+            wristDefaultRot = wristBone.localRotation;
+        }
     }
 
     void Update()
     {
-        CheckHoverAndInteract();
-        HandleInput();
+        HandleBottleInput();
+        HandleWristTilt();          // el boşken de, şişeliyken de çalışır
+
+        // Şişe varken normal pickup yapma
+        if (currentBottle == null)
+        {
+            HandleNormalPickup();
+        }
+
+        HandleInteractionInput();
     }
 
-    void CheckHoverAndInteract()
-    {
-        Ray ray = playerCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, interactRange, interactLayerMask))
-        {
-            Interactable inter = hit.collider.GetComponentInParent<Interactable>();
-            if (inter != null)
-            {
-                // burada UI g�sterebilirsin: "E to interact" yani inter.interactionName
-                inter.OnHover();
+    // ============================================================
+    //                      BOTTLE SYSTEM
+    // ============================================================
 
-                // g�rsel crosshair de�i�imi vs. (opsiyonel)
-            }
-        }
-        else
+    void HandleBottleInput()
+    {
+        // E → şişe almak (sadece elde şişe yoksa)
+        if (Input.GetKeyDown(grabBottleKey) && currentBottle == null)
         {
-            // nothing hovered
+            TryGrabBottle();
+        }
+
+        // Q → şişe bırakmak (elde şişe varsa)
+        if (currentBottle != null && Input.GetKeyDown(dropKey))
+        {
+            DropBottle();
         }
     }
 
-    void HandleInput()
+    void TryGrabBottle()
     {
+        Ray ray = playerCamera.ScreenPointToRay(
+            new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
+
+        if (!Physics.Raycast(ray, out RaycastHit hit, interactRange, bottleLayer))
+            return;
+
+        Transform bottle = hit.collider.transform;
+
+        currentBottle = bottle;
+        currentBottleRb = bottle.GetComponent<Rigidbody>();
+        currentBottleCol = bottle.GetComponent<Collider>();
+
+        if (currentBottleRb != null)
+        {
+            currentBottleRb.isKinematic = true;
+            currentBottleRb.useGravity = false;
+        }
+        if (currentBottleCol != null)
+        {
+            currentBottleCol.enabled = false;
+        }
+
+        bottle.SetParent(bottleSocket);
+        bottle.localPosition = heldLocalPos;
+        bottle.localRotation = heldLocalRot;
+
+        if (handAnimator != null)
+            handAnimator.SetBool("HasBottle", true);
+    }
+
+    void DropBottle()
+    {
+        if (currentBottle == null) return;
+
+        if (handAnimator != null)
+            handAnimator.SetBool("HasBottle", false);
+
+        currentBottle.SetParent(null);
+
+        if (currentBottleRb != null)
+        {
+            currentBottleRb.isKinematic = false;
+            currentBottleRb.useGravity = true;
+        }
+        if (currentBottleCol != null)
+        {
+            currentBottleCol.enabled = true;
+        }
+
+        currentBottle = null;
+        currentBottleRb = null;
+        currentBottleCol = null;
+
+        // Bileği default rotasyona çek
+        if (wristBone != null)
+            wristBone.localRotation = wristDefaultRot;
+    }
+
+    // R'ye basılı tutunca el + tuttuğu her şey Y ekseninde döner
+    void HandleWristTilt()
+    {
+        if (wristBone == null) return;
+
+        bool isTilting = Input.GetKey(tiltKey);   // R'ye basılı mı?
+
+        // Default rotasyon
+        Quaternion targetRot = wristDefaultRot;
+
+        if (isTilting)
+        {
+            // Senin çalıştırdığın versiyon: (0f, -wristTiltAngle, 0f)
+            // Yani Y ekseninde sağa yatma
+            targetRot = wristDefaultRot * Quaternion.Euler(0f, -wristTiltAngle, 0f);
+        }
+
+        wristBone.localRotation = Quaternion.Lerp(
+            wristBone.localRotation,
+            targetRot,
+            Time.deltaTime * wristTiltSpeed
+        );
+    }
+
+    // ============================================================
+    //                    NORMAL PICKUP SYSTEM
+    // ============================================================
+
+    void HandleNormalPickup()
+    {
+        // Mouse0 ile almak
         if (Input.GetKeyDown(pickupKey))
         {
-            if (heldItem == null) TryPickUpWithRay();
-            else UseHeldItem(); // e.g. ate� et veya kullan
+            if (heldItem == null)
+                TryPickUpItem();
         }
 
-        if (Input.GetKeyDown(interactKey))
+        // Q ile bırakmak
+        if (Input.GetKeyDown(dropKey) && heldItem != null)
         {
-            TryInteractWithRay();
-        }
-
-        if (Input.GetKeyDown(dropKey))
-        {
-            if (heldItem != null) DropHeldItem();
+            DropHeldItem();
         }
     }
 
-    void TryPickUpWithRay()
+    void TryPickUpItem()
     {
-        Ray ray = playerCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, interactRange, interactLayerMask))
+        Ray ray = playerCamera.ScreenPointToRay(
+            new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
+
+        if (Physics.Raycast(ray, out RaycastHit hit, interactRange, interactLayerMask))
         {
             Pickupable p = hit.collider.GetComponentInParent<Pickupable>();
             if (p != null)
@@ -78,49 +213,52 @@ public class HandController : MonoBehaviour
         }
     }
 
-    void TryInteractWithRay()
-    {
-        Ray ray = playerCamera.ScreenPointToRay(new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit, interactRange, interactLayerMask))
-        {
-            Interactable inter = hit.collider.GetComponentInParent<Interactable>();
-            if (inter != null)
-            {
-                inter.OnInteract(this);
-            }
-        }
-    }
-
     public void PickUp(Pickupable p)
     {
         if (heldItem != null) return;
+        if (currentBottle != null) return; // şişe varken normal item alma
+
         heldItem = p;
         p.OnPick(handAttachPoint);
 
-        // e�er elin Animator'� varsa, burada parametrelere set at
-        var anim = GetComponentInChildren<Animator>();
-        if (anim) anim.SetBool("Holding", true);
+        if (handAnimator != null)
+            handAnimator.SetBool("Holding", true);
     }
 
     public void DropHeldItem()
     {
         if (heldItem == null) return;
-        Vector3 forward = playerCamera.transform.forward;
-        Vector3 force = forward * dropForce + Vector3.up * (dropForce * 0.2f);
-        heldItem.OnDrop(force);
+
+        heldItem.OnDrop(Vector3.up * 2f); // yukarı hafif kuvvet
         heldItem = null;
 
-        var anim = GetComponentInChildren<Animator>();
-        if (anim) anim.SetBool("Holding", false);
+        if (handAnimator != null)
+            handAnimator.SetBool("Holding", false);
     }
 
-    public void UseHeldItem()
+    // ============================================================
+    //                         INTERACT
+    // ============================================================
+
+    void HandleInteractionInput()
     {
-        // �rnek: bir aleti kullanmak istiyorsan burada tetikle
-        // e.g. if heldItem has tool behaviour �a��r
-        Debug.Log("Kullan�l�yor: " + (heldItem ? heldItem.name : "Yok"));
+        // İstersen: şişe eldeyken interact kapansın
+        // if (currentBottle != null) return;
+
+        if (Input.GetKeyDown(interactKey))
+            TryInteractWithRay();
     }
 
+    void TryInteractWithRay()
+    {
+        Ray ray = playerCamera.ScreenPointToRay(
+            new Vector3(Screen.width / 2f, Screen.height / 2f, 0f));
 
+        if (Physics.Raycast(ray, out RaycastHit hit, interactRange, interactLayerMask))
+        {
+            Interactable inter = hit.collider.GetComponentInParent<Interactable>();
+            if (inter != null)
+                inter.OnInteract(this);
+        }
+    }
 }
