@@ -95,6 +95,10 @@ public class ReactionManager : MonoBehaviour
 
         if (rx.consumeAllReactants) container.Consume(rx.reactants);
         // products eklemek istersen burada container.AddSubstance(...) ile ekleyebilirsin
+        if (MissionManager.Instance != null)
+        {
+            MissionManager.Instance.NotifyReactionPerformed(rx);
+        }
     }
 
     // Gösterge rengi: container’da bir indicator var ise pH’a göre renk döndür
