@@ -10,29 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 83774c56bad3b3140b96aa35e8c5b0f6, type: 3}
-  m_Name: Indicator Color (NaOH + Phenolphthalein)
+  m_Name: qdqd
   m_EditorClassIdentifier: 
   reactants:
-  - {fileID: 11400000, guid: 938ec015c26e07b40a1cd4f58ffda50c, type: 2}
-  - {fileID: 11400000, guid: cfbcc991a450a1a42b25b9175a180f2c, type: 2}
+  - {fileID: 0}
+  - {fileID: 0}
   requiresLiquidContainer: 1
   minTemp: 0
   maxTemp: 999
   onlyIfIndicatorPresent: 0
-  effects:
-  - type: 0
-    targetColor: {r: 0, g: 0, b: 0, a: 0}
-    colorLerpTime: 0
-    gasPrefab: {fileID: 0}
-    gasRate: 0
-    gasDuration: 0
-    heatDelta: 0
-    foamPrefab: {fileID: 0}
-    foamDuration: 0
-    explosionPrefab: {fileID: 0}
-    explosionForce: 0
-    explosionRadius: 0
-    explosionSfx: {fileID: 0}
+  effects: []
   consumeAllReactants: 1
   products: []
   notes: 
