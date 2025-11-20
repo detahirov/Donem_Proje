@@ -129,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 169157292}
   - component: {fileID: 169157293}
+  - component: {fileID: 169157294}
   m_Layer: 0
   m_Name: ReactionManager
   m_TagString: Untagged
@@ -173,6 +174,18 @@ MonoBehaviour:
   indicators:
   - {fileID: 11400000, guid: 8464d9c32d235e641820a76d250936ee, type: 2}
   - {fileID: 11400000, guid: f448cc1c8ec67874a9725f9cd322cdb5, type: 2}
+--- !u!114 &169157294
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 169157290}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4eeae29210b03b546917789bee4af27b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &319184188
 PrefabInstance:
   m_ObjectHideFlags: 0
