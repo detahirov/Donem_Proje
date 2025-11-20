@@ -19,7 +19,20 @@ MonoBehaviour:
   minTemp: 0
   maxTemp: 999
   onlyIfIndicatorPresent: 0
-  effects: []
+  effects:
+  - type: 0
+    targetColor: {r: 0, g: 0, b: 0, a: 0}
+    colorLerpTime: 0
+    gasPrefab: {fileID: 0}
+    gasRate: 0
+    gasDuration: 0
+    heatDelta: 0
+    foamPrefab: {fileID: 0}
+    foamDuration: 0
+    explosionPrefab: {fileID: 0}
+    explosionForce: 0
+    explosionRadius: 0
+    explosionSfx: {fileID: 0}
   consumeAllReactants: 1
   products: []
   notes: 

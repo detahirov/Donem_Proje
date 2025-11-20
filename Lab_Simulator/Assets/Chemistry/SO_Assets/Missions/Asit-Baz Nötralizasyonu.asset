@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d5b9f0b088b5dc41bef6a53616f7625, type: 3}
+  m_Name: "Asit-Baz N\xF6tralizasyonu"
+  m_EditorClassIdentifier: 
+  missionId: mission_001
+  title: Na + Su Tepkimesi
+  description: "Sodyumu suya atarak tepkimeyi g\xF6zlemle."
+  conditionType: 1
+  targetReaction: {fileID: 11400000, guid: e255f480844fa074c89a150431de4c89, type: 2}
+  targetSubstance: {fileID: 0}
+  toolName: 
+  unlockSubstances:
+  - {fileID: 11400000, guid: 19a3324a54f7ea34ead3124df551bf41, type: 2}
+  - {fileID: 11400000, guid: 58faeed3495dbbe469346eb374e27fd7, type: 2}
+  unlockTools: []
+  completesGame: 0

@@ -22,6 +22,7 @@ public class SubstanceSO : ScriptableObject
     public bool isOxidizer;  // KMnO4 gibi
     public bool isMetal;     // Na, K, Zn, Mg...
     public bool reactsViolentlyWithWater; // Na, K gibi
-
+    [Header("Unlock")]
+    public bool unlockedByDefault = false;
     [TextArea] public string notes;
 }
