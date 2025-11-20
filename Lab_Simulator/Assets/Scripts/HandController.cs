@@ -6,7 +6,7 @@ public class HandController : MonoBehaviour
     public Camera playerCamera;
     public float interactRange = 3f;
     public LayerMask interactLayerMask = ~0;
-    public KeyCode interactKey = KeyCode.E;
+    public KeyCode interactKey = KeyCode.E;   // İstersen F yapabilirsin
 
     [Header("General Pickup System (Pickupable)")]
     public Transform handAttachPoint;         // normal pickupable'lar için eldeki nokta
@@ -22,7 +22,7 @@ public class HandController : MonoBehaviour
 
     [Header("Hand Tilt (El Eğme)")]
     public Transform wristBone;              // HandRig altındaki Wrist kemiği
-    public float wristTiltAngle = 90f;       // Y ekseninde ne kadar dönecek
+    public float wristTiltAngle = 70f;       // Y ekseninde ne kadar dönecek
     public float wristTiltSpeed = 8f;        // eğme için Lerp hızı
     public KeyCode tiltKey = KeyCode.R;      // R'ye basılı tutarak eğ
 
@@ -36,7 +36,7 @@ public class HandController : MonoBehaviour
     private Vector3 heldLocalPos;
     private Quaternion heldLocalRot;
 
-    // Wrist rotasyonları
+    // Wrist rotasyonu
     private Quaternion wristDefaultRot;
 
     void Start()
@@ -81,10 +81,15 @@ public class HandController : MonoBehaviour
 
     void HandleBottleInput()
     {
-        // E → şişe almak (sadece elde şişe yoksa)
-        if (Input.GetKeyDown(grabBottleKey) && currentBottle == null)
+        // E:
+        //  - elde şişe yoksa → şişe al
+        //  - elde şişe varsa → kapağı aç/kapa
+        if (Input.GetKeyDown(grabBottleKey))
         {
-            TryGrabBottle();
+            if (currentBottle == null)
+                TryGrabBottle();
+            else
+                ToggleBottleCap();
         }
 
         // Q → şişe bırakmak (elde şişe varsa)
@@ -124,11 +129,25 @@ public class HandController : MonoBehaviour
 
         if (handAnimator != null)
             handAnimator.SetBool("HasBottle", true);
+
+        // Şişeye held bilgisini gönder
+        BottleController bc = bottle.GetComponent<BottleController>();
+        if (bc != null)
+        {
+            bc.SetHeld(true);
+        }
     }
 
     void DropBottle()
     {
         if (currentBottle == null) return;
+
+        // BottleController'a held = false de
+        BottleController bc = currentBottle.GetComponent<BottleController>();
+        if (bc != null)
+        {
+            bc.SetHeld(false);
+        }
 
         if (handAnimator != null)
             handAnimator.SetBool("HasBottle", false);
@@ -154,6 +173,17 @@ public class HandController : MonoBehaviour
             wristBone.localRotation = wristDefaultRot;
     }
 
+    void ToggleBottleCap()
+    {
+        if (currentBottle == null) return;
+
+        BottleController bc = currentBottle.GetComponent<BottleController>();
+        if (bc != null)
+        {
+            bc.ToggleCap();
+        }
+    }
+
     // R'ye basılı tutunca el + tuttuğu her şey Y ekseninde döner
     void HandleWristTilt()
     {
@@ -166,8 +196,8 @@ public class HandController : MonoBehaviour
 
         if (isTilting)
         {
-            // Senin çalıştırdığın versiyon: (0f, -wristTiltAngle, 0f)
-            // Yani Y ekseninde sağa yatma
+            // Senin doğru bulduğun versiyon: (0f, -wristTiltAngle, 0f)
+            // Y ekseninde sağa yatma
             targetRot = wristDefaultRot * Quaternion.Euler(0f, -wristTiltAngle, 0f);
         }
 
@@ -242,8 +272,8 @@ public class HandController : MonoBehaviour
 
     void HandleInteractionInput()
     {
-        // İstersen: şişe eldeyken interact kapansın
-        // if (currentBottle != null) return;
+        // Şişe eldeyken diğer interactleri devre dışı bırak
+        if (currentBottle != null) return;
 
         if (Input.GetKeyDown(interactKey))
             TryInteractWithRay();

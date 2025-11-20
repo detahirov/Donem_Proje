@@ -278,6 +278,7 @@ GameObject:
   - component: {fileID: 6812010579417284426}
   - component: {fileID: 9023343638125053746}
   - component: {fileID: 4240930719138028795}
+  - component: {fileID: -3063087075766449525}
   m_Layer: 0
   m_Name: HCI
   m_TagString: Untagged
@@ -438,6 +439,25 @@ MonoBehaviour:
   substance: {fileID: 11400000, guid: 938ec015c26e07b40a1cd4f58ffda50c, type: 2}
   amount: 0.05
   consumedOnAdd: 1
+--- !u!114 &-3063087075766449525
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3394911878397090405}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a94e0ab0662b07c44ae9992d54ab3331, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cap: {fileID: 5843776345889270203}
+  startsOpen: 0
+  capOpenAngle: -90
+  liquidAmount: 100
+  pourAngle: 60
+  pourRate: 10
+  pourFx: {fileID: 0}
 --- !u!1 &3406121484344695399
 GameObject:
   m_ObjectHideFlags: 0
