@@ -142,11 +142,12 @@ public class HandController : MonoBehaviour
     {
         if (currentBottle == null) return;
 
-        // BottleController'a held = false de
+        // BottleController'a held = false ve pourInput = false de
         BottleController bc = currentBottle.GetComponent<BottleController>();
         if (bc != null)
         {
             bc.SetHeld(false);
+            bc.pourInput = false;
         }
 
         if (handAnimator != null)
@@ -185,18 +186,26 @@ public class HandController : MonoBehaviour
     }
 
     // R'ye basılı tutunca el + tuttuğu her şey Y ekseninde döner
+    // ve R bilgisini şişeye pourInput olarak yollar
     void HandleWristTilt()
     {
         if (wristBone == null) return;
 
         bool isTilting = Input.GetKey(tiltKey);   // R'ye basılı mı?
 
+        // R bilgisini şişeye gönder
+        if (currentBottle != null)
+        {
+            var bc = currentBottle.GetComponent<BottleController>();
+            if (bc != null)
+                bc.pourInput = isTilting;
+        }
+
         // Default rotasyon
         Quaternion targetRot = wristDefaultRot;
 
         if (isTilting)
         {
-            // Senin doğru bulduğun versiyon: (0f, -wristTiltAngle, 0f)
             // Y ekseninde sağa yatma
             targetRot = wristDefaultRot * Quaternion.Euler(0f, -wristTiltAngle, 0f);
         }
