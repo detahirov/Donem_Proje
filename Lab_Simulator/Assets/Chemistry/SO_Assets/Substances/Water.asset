@@ -24,4 +24,5 @@ MonoBehaviour:
   isOxidizer: 0
   isMetal: 0
   reactsViolentlyWithWater: 0
+  unlockedByDefault: 1
   notes: 

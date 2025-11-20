@@ -16,9 +16,11 @@ MonoBehaviour:
   title: Na + Su Tepkimesi
   description: "Sodyumu suya atarak tepkimeyi g\xF6zlemle."
   conditionType: 1
-  targetReaction: {fileID: 0}
+  targetReaction: {fileID: 11400000, guid: e255f480844fa074c89a150431de4c89, type: 2}
   targetSubstance: {fileID: 0}
   toolName: 
-  unlockSubstances: []
+  unlockSubstances:
+  - {fileID: 11400000, guid: 19a3324a54f7ea34ead3124df551bf41, type: 2}
+  - {fileID: 11400000, guid: 58faeed3495dbbe469346eb374e27fd7, type: 2}
   unlockTools: []
   completesGame: 0
