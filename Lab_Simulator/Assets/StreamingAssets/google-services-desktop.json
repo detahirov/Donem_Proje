@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "948070315842",
+    "project_id": "chemical-lab-simulator",
+    "storage_bucket": "chemical-lab-simulator.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:948070315842:android:d4103f0f82b63c354d7adb",
+        "android_client_info": {
+          "package_name": "com.UnityTechnologies.com.unity.template.urpblank"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAvjmFZTqGcdTluYvAp4Noc4L1d4otmU4Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
