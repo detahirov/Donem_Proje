@@ -20,6 +20,8 @@ public class FirebaseInit : MonoBehaviour
                 App = FirebaseApp.DefaultInstance;
                 IsReady = true;
                 Debug.Log("Firebase hazýr.");
+                if (AuthManager.Instance != null)
+                    AuthManager.Instance.TryInitAuth();
             }
             else
             {
