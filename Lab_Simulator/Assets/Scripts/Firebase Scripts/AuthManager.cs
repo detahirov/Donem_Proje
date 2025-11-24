@@ -12,7 +12,13 @@ public class AuthManager : MonoBehaviour
 
     public event Action<FirebaseUser> OnLoggedIn;
     public event Action OnLoggedOut;
-
+    public void TryInitAuth()
+    {
+        if (FirebaseInit.IsReady && Auth == null)
+        {
+            InitAuth();
+        }
+    }
     void Awake()
     {
         if (Instance != null && Instance != this) { Destroy(gameObject); return; }
