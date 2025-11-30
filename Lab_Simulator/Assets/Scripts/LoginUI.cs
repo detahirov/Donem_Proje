@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using UnityEngine.SceneManagement;   // TextMeshPro kullanýyorsan
 
+
 public class LoginUI : MonoBehaviour
 {
     [Header("Inputlar")]
@@ -15,6 +16,9 @@ public class LoginUI : MonoBehaviour
 
     [Header("Durum Yazýsý")]
     public TextMeshProUGUI statusText;
+
+    bool userPressedLoginOrRegister = false;
+    bool autoLoggedInWithoutClick = false;
 
     void Start()
     {
@@ -31,7 +35,21 @@ public class LoginUI : MonoBehaviour
 
         SetStatus("Lütfen email ve þifre girin.");
     }
+    void OnEnable()
+    {
+        if (AuthManager.Instance != null)
+        {
+            AuthManager.Instance.OnLoggedIn += HandleLoggedIn;
+        }
+    }
 
+    void OnDisable()
+    {
+        if (AuthManager.Instance != null)
+        {
+            AuthManager.Instance.OnLoggedIn -= HandleLoggedIn;
+        }
+    }
     void OnDestroy()
     {
         if (loginButton != null)
@@ -53,9 +71,29 @@ public class LoginUI : MonoBehaviour
         string email = emailInput.text.Trim();
         string pass = passwordInput.text;
 
-        if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(pass))
+        if (string.IsNullOrEmpty(email))
         {
-            SetStatus("Email ve þifre boþ olamaz.");
+            SetStatus("Email boþ olamaz.");
+            return;
+        }
+
+        // Eðer Firebase zaten login ise ve bu login otomatik geldiyse
+        // ve kullanýcý email'i deðiþtirmediyse bunu "Devam Et" say.
+        if (AuthManager.Instance != null &&
+            AuthManager.Instance.CurrentUser != null &&
+            autoLoggedInWithoutClick &&
+            AuthManager.Instance.CurrentUser.Email == email)
+        {
+            // Þifre sormadan devam et
+            SetStatus("Kaydedilmiþ hesapla devam ediliyor: " + email);
+            GoToGameScene();
+            return;
+        }
+
+        // Buraya düþtüysek  normal login denemesi
+        if (string.IsNullOrEmpty(pass))
+        {
+            SetStatus("Bu hesapla ilk kez giriþ yapacaksan þifre de girmelisin.");
             return;
         }
 
@@ -65,17 +103,10 @@ public class LoginUI : MonoBehaviour
             return;
         }
 
+        userPressedLoginOrRegister = true;
         SetStatus("Giriþ yapýlýyor...");
 
-        // AuthManager içinde Login çaðýrýyoruz
         AuthManager.Instance.Login(email, pass);
-    }
-    void OnDisable()
-    {
-        if (AuthManager.Instance != null)
-        {
-            AuthManager.Instance.OnLoggedIn -= HandleLoggedIn;
-        }
     }
     void OnRegisterClicked()
     {
@@ -94,19 +125,44 @@ public class LoginUI : MonoBehaviour
             return;
         }
 
+        userPressedLoginOrRegister = true;
         SetStatus("Kayýt olunuyor...");
 
         AuthManager.Instance.Register(email, pass);
     }
     void HandleLoggedIn(Firebase.Auth.FirebaseUser user)
     {
-        SetStatus("Giriþ baþarýlý: " + user.Email);
+        if (user == null) return;
 
-        // Ýstersen login panelini gizle
-        gameObject.SetActive(false);
+        // Eðer bu login, bizim Login/Register butonuna basmamýz SONRASI geldiyse
+        if (userPressedLoginOrRegister)
+        {
+            SetStatus("Giriþ baþarýlý: " + user.Email);
+            GoToGameScene();   // birazdan yazacaðýz
+        }
+        else
+        {
+            // Bu, oyun açýlýrken otomatik oturum restore edildiði durum
+            autoLoggedInWithoutClick = true;
 
-        // Burada oyun sahnesine geçebilirsin:
-        // using UnityEngine.SceneManagement;
-        SceneManager.LoadScene("TepkimeDeneme");  // senin sahnenin adý
+            // Email kutusunu doldur
+            if (emailInput != null)
+                emailInput.text = user.Email;
+
+            if (passwordInput != null)
+                passwordInput.text = ""; // þifreyi bilemeyiz
+
+            SetStatus("Otomatik giriþ algýlandý: " + user.Email +
+                      "\nBu hesapla devam etmek için Login'e basabilir veya email/þifreyi deðiþtirip baþka hesapla giriþ yapabilirsin.");
+            // DÝKKAT: Burada SAHNE deðiþtirmiyoruz, sadece UI güncellendi.
+        }
+    }
+    void GoToGameScene()
+    {
+        // Login panelini gizlemek istersen:
+        // gameObject.SetActive(false);
+
+        // Buraya laboratuvar sahnenin ismini yaz
+        SceneManager.LoadScene("Original Lab");  // kendi sahne adýný yaz
     }
 }
