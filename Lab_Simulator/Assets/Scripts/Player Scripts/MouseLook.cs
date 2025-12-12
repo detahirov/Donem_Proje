@@ -15,6 +15,9 @@ public class MouseLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        // Eðer cursor unlocked ise (panel açýk), mouse look çalýþmasýn
+        if (!MouseManager.Instance.CursorLocked)
+            return;
         float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
         float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
 
