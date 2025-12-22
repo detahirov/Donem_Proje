@@ -34,6 +34,7 @@ public class MissionManager : MonoBehaviour
     void Start()
     {
         // Oyuna girince ilk görevi UI'ye bildirelim
+        
         NotifyMissionChanged();
     }
 
@@ -136,5 +137,11 @@ public class MissionManager : MonoBehaviour
         {
             CompleteCurrentMission();
         }
+    }
+    public MissionSO GetCurrentMission()
+    {
+        if (currentMissionIndex < missions.Count)
+            return missions[currentMissionIndex];
+        return null;
     }
 }
