@@ -114,6 +114,8 @@ public class MissionListUI : MonoBehaviour
                 if (descText != null) descText.color = futureColor;
                 if (img != null) img.color = new Color(0.1f, 0.1f, 0.1f, 0.5f);
             }
+            
+
         }
     }
 }

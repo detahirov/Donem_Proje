@@ -18,10 +18,11 @@ MonoBehaviour:
   solubleInWater: 1
   baseColor: {r: 1, g: 1, b: 1, a: 1}
   icon: {fileID: 0}
-  isAcid: 0
+  isAcid: 1
   isBase: 0
   isIndicator: 0
   isOxidizer: 0
   isMetal: 0
   reactsViolentlyWithWater: 0
+  unlockedByDefault: 0
   notes: 
