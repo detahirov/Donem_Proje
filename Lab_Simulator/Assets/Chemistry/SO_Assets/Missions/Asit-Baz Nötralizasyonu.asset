@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: "Asit-Baz N\xF6tralizasyonu"
   m_EditorClassIdentifier: 
   missionId: mission_001
-  title: Na + Su Tepkimesi
-  description: "Sodyumu suya atarak tepkimeyi g\xF6zlemle."
+  title: "Soda + \xC7inko"
+  description: "Sodyum ve \xE7inko tepkimesi."
   conditionType: 1
   targetReaction: {fileID: 11400000, guid: e255f480844fa074c89a150431de4c89, type: 2}
   targetSubstance: {fileID: 0}

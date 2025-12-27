@@ -17,6 +17,8 @@ public class InfoPanelUI : MonoBehaviour
 
     public void Show(InfoData data)
     {
+        Debug.Log("INFO PANEL AÇILDI: " + gameObject.name);
+
         titleText.text = data.title;
         descText.text = data.description;
         safetyText.text = data.safetyNotes;
