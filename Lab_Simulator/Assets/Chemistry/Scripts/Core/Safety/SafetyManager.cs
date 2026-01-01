@@ -10,6 +10,11 @@ public class SafetyManager : MonoBehaviour
     void Awake()
     {
         Instance = this;
+        equipped.Clear(); 
+    }
+    void Start()
+    {
+        equipped.Clear();
     }
 
     public void Equip(SafetyEquipmentType type)
