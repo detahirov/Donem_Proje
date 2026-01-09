@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HCl_Info
   m_EditorClassIdentifier: 
   title: Hidroklorik Asit (HCl)
-  description: "G\xFC\xE7l\xFC bir asittir. Suda tamamen iyonla\u015F\u0131r."
+  description: "G\xFC\xE7l\xFC bir asittir. Suda tamamen iyonla\u015F\u0131r.."
   category: 0
   relatedObjects: []
   safetyNotes: "Eldiven ve g\xF6zl\xFCk kullan."

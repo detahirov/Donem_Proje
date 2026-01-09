@@ -37,23 +37,18 @@ public class MissionListUI : MonoBehaviour
         RebuildList();
     }
 
+
     public void RebuildList()
     {
-        if (MissionManager.Instance == null)
-        {
-            Debug.LogWarning("[MissionListUI] RebuildList: MissionManager.Instance yok!");
-            return;
-        }
+        if (MissionManager.Instance == null) return;
 
         var missions = MissionManager.Instance.missions;
         int currentIndex = MissionManager.Instance.currentMissionIndex;
 
-        Debug.Log($"[MissionListUI] RebuildList: {missions.Count} görev bulundu, currentIndex={currentIndex}");
-
-        // Eski satýrlarý sil
-        foreach (var go in spawnedRows)
+        // Eski satýrlarý temizle
+        foreach (Transform child in contentRoot)
         {
-            if (go != null) Destroy(go);
+            Destroy(child.gameObject);
         }
         spawnedRows.Clear();
 
@@ -63,32 +58,18 @@ public class MissionListUI : MonoBehaviour
             GameObject row = Instantiate(missionRowPrefab, contentRoot);
             spawnedRows.Add(row);
 
-            // Prefab içindeki textleri bul
+            // TextMeshPro bileþenlerini bul (Garanti yöntem)
             var texts = row.GetComponentsInChildren<TextMeshProUGUI>();
             TextMeshProUGUI titleText = null;
             TextMeshProUGUI descText = null;
 
-            foreach (var t in texts)
-            {
-                if (t.gameObject.name.Contains("Title"))
-                    titleText = t;
-                else if (t.gameObject.name.Contains("Desc"))
-                    descText = t;
-            }
+            // Ýsim kontrolü yerine sýraya göre atama (Prefab yapýna göre)
+            // Genellikle 1. baþlýk, 2. açýklamadýr.
+            if (texts.Length > 0) titleText = texts[0];
+            if (texts.Length > 1) descText = texts[1];
 
-            // Ýsimleri farklý koyduysan direkt children[0]/[1] da yapabilirsin:
-            if (titleText == null || descText == null)
-            {
-                var tmps = row.GetComponentsInChildren<TextMeshProUGUI>();
-                if (tmps.Length > 0) titleText = tmps[0];
-                if (tmps.Length > 1) descText = tmps[1];
-            }
-
-            if (titleText != null)
-                titleText.text = m.title;
-
-            if (descText != null)
-                descText.text = m.description;
+            if (titleText != null) titleText.text = m.title;
+            if (descText != null) descText.text = m.description;
 
             bool isDone = (i < currentIndex);
             bool isCurrent = (i == currentIndex);
@@ -97,25 +78,37 @@ public class MissionListUI : MonoBehaviour
 
             if (isDone)
             {
-                if (titleText != null) titleText.color = doneColor;
+                // Tamamlanmýþ Görev
+                if (titleText != null)
+                {
+                    titleText.color = doneColor;
+                    titleText.fontStyle |= FontStyles.Strikethrough;
+                }
                 if (descText != null) descText.color = doneColor;
                 if (img != null) img.color = new Color(0.2f, 0.2f, 0.2f, 0.6f);
-                if (titleText != null) titleText.fontStyle |= FontStyles.Strikethrough;
             }
             else if (isCurrent)
             {
-                if (titleText != null) titleText.color = currentColor;
+                // Aktif Görev
+                if (titleText != null)
+                {
+                    titleText.color = currentColor;
+                    titleText.fontStyle &= ~FontStyles.Strikethrough; // Çizgiyi kaldýr
+                }
                 if (descText != null) descText.color = currentColor;
-                if (img != null) img.color = new Color(0.3f, 0.3f, 0.0f, 0.7f);
+                if (img != null) img.color = new Color(0.5f, 0.5f, 0.0f, 0.8f); // Biraz daha belirgin
             }
             else
             {
-                if (titleText != null) titleText.color = futureColor;
+                // Gelecek Görev
+                if (titleText != null)
+                {
+                    titleText.color = futureColor;
+                    titleText.fontStyle &= ~FontStyles.Strikethrough;
+                }
                 if (descText != null) descText.color = futureColor;
                 if (img != null) img.color = new Color(0.1f, 0.1f, 0.1f, 0.5f);
             }
-            
-
         }
     }
 }

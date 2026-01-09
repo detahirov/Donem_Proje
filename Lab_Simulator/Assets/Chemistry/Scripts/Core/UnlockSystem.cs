@@ -38,7 +38,44 @@ public static class UnlockSystem
             }
         }
     }
+    public static void ResetAllUnlocks()
+    {
+        // 1. Hafýzadaki listeyi temizle
+        unlockedSubstances.Clear();
 
+        // 2. PlayerPrefs'teki tüm "ChemLab_Unlocked_" ile baþlayan kayýtlarý bul ve sil
+        // Unity'de belirli keyleri topluca silme yoktur, bu yüzden SubstanceSO'larý tarayýp siliyoruz.
+        var allSubstances = Resources.LoadAll<SubstanceSO>("");
+        foreach (var so in allSubstances)
+        {
+            string key = SUBSTANCE_PREFIX + so.name;
+            if (PlayerPrefs.HasKey(key))
+            {
+                PlayerPrefs.DeleteKey(key);
+            }
+        }
+        PlayerPrefs.Save();
+
+        // 3. Sahnedeki nesneleri gizle (Varsayýlan açýk olanlar hariç)
+        var allChemicals = Object.FindObjectsOfType<Chemical>(true);
+        foreach (var chem in allChemicals)
+        {
+            if (chem.substance != null)
+            {
+                // Eðer varsayýlan olarak kilitli olmasý gerekiyorsa gizle
+                if (!chem.substance.unlockedByDefault)
+                {
+                    chem.gameObject.SetActive(false);
+                }
+                else
+                {
+                    // Varsayýlan açýk olanlarý (Sodyum gibi) göster
+                    chem.gameObject.SetActive(true);
+                }
+            }
+        }
+        Debug.Log("Tüm kilitler ve ilerleme sýfýrlandý.");
+    }
     public static void UnlockTool(GameObject tool)
     {
         if (tool == null) return;
